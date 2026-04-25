@@ -16,7 +16,8 @@ public static class BuildScript
 
     public static void BuildWindows64()
     {
-        string outputDir = Environment.GetEnvironmentVariable("BUILD_OUTPUT_DIR")
+        string outputDir = Environment.GetEnvironmentVariable("BUILD_PATH")
+                           ?? Environment.GetEnvironmentVariable("BUILD_OUTPUT_DIR")
                            ?? "Builds/Windows";
         string exe = Path.Combine(outputDir, "VirtualSimSystem.exe");
 
