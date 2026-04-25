@@ -53,6 +53,7 @@ jobs:
           # 使用项目内的构建脚本，自动构建 Addressables 后再打包
           buildMethod: BuildScript.BuildWindows64
           customParameters: -BUILD_OUTPUT_DIR build/StandaloneWindows64
+          allowDirtyBuild: true
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
