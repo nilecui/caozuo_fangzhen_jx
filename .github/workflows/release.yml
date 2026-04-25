@@ -16,6 +16,16 @@ jobs:
           fetch-depth: 0
           lfs: true
 
+      # 下载 sqlite3 Windows x64 原生库（运行时必需）
+      - name: Download sqlite3.dll
+        run: |
+          curl -fsSL --retry 3 \
+            "https://www.sqlite.org/2024/sqlite-dll-win-x64-x64-3470200.zip" \
+            -o /tmp/sqlite3.zip
+          unzip -q /tmp/sqlite3.zip -d /tmp/sqlite3out
+          cp /tmp/sqlite3out/sqlite3.dll Assets/Plugins/x86_64/sqlite3.dll
+          echo "sqlite3.dll size: $(wc -c < Assets/Plugins/x86_64/sqlite3.dll) bytes"
+
       # 缓存 Unity Library 目录，大幅缩短后续构建时间
       - name: Cache Library
         uses: actions/cache@v4
