@@ -1,0 +1,30 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+  <Style src="../USS/Theme.uss"/>
+  <ui:VisualElement style="flex-grow:1; align-items:center; justify-content:center; background-color:rgb(245,247,250);">
+    <ui:Label text="虚拟仿真示教系统" style="font-size:28px; -unity-font-style:bold; color:rgb(21,101,192); margin-bottom:32px;"/>
+
+    <ui:VisualElement style="background-color:white; border-radius:8px; padding:32px; width:360px;">
+      <ui:Label text="学员信息" style="font-size:16px; -unity-font-style:bold; margin-bottom:16px;"/>
+
+      <ui:Label text="姓名" style="margin-bottom:4px;"/>
+      <ui:TextField name="field-name" style="margin-bottom:12px;"/>
+
+      <ui:Label text="工号" style="margin-bottom:4px;"/>
+      <ui:TextField name="field-id" style="margin-bottom:20px;"/>
+
+      <ui:Label text="选择装备" style="margin-bottom:8px;"/>
+      <ui:DropdownField name="dropdown-equipment"
+        choices="装卡车-A型,装卡车-B型,起重起卷机车-A型,起重起卷机车-B型"
+        style="margin-bottom:24px;"/>
+
+      <ui:Label text="选择模块" style="margin-bottom:8px;"/>
+      <ui:VisualElement style="flex-direction:column; gap:8px; margin-bottom:24px;">
+        <ui:Button name="btn-structure"   text="结构认知" class="btn-primary"/>
+        <ui:Button name="btn-principle"   text="原理演示" class="btn-primary"/>
+        <ui:Button name="btn-training"    text="操作训练" class="btn-primary"/>
+        <ui:Button name="btn-assessment"  text="考核评估" class="btn-primary"/>
+        <ui:Button name="btn-scores"      text="成绩管理" class="btn-primary"/>
+      </ui:VisualElement>
+    </ui:VisualElement>
+  </ui:VisualElement>
+</ui:UXML>

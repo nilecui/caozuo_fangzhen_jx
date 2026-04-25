@@ -1,0 +1,37 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+  <Style src="../USS/Theme.uss"/>
+  <ui:VisualElement style="padding:20px; background-color:rgb(245,247,250); flex-grow:1;">
+    <ui:Label text="考核成绩报告" style="font-size:20px; -unity-font-style:bold; color:rgb(21,101,192); margin-bottom:16px;"/>
+
+    <ui:VisualElement name="report-card" style="background-color:white; border-radius:8px; padding:16px; margin-bottom:12px;">
+      <ui:Label name="trainee-info" text="学员：---" style="margin-bottom:4px;"/>
+      <ui:Label name="equipment-info" text="装备：---" style="margin-bottom:4px;"/>
+      <ui:Label name="date-info" text="日期：---" style="margin-bottom:4px;"/>
+    </ui:VisualElement>
+
+    <ui:VisualElement style="flex-direction:row; gap:12px; margin-bottom:12px;">
+      <ui:VisualElement style="background-color:white; border-radius:8px; padding:16px; flex:1; align-items:center;">
+        <ui:Label name="score-value" text="--" style="font-size:36px; -unity-font-style:bold; color:rgb(21,101,192);"/>
+        <ui:Label text="总分" style="color:rgb(97,97,97);"/>
+      </ui:VisualElement>
+      <ui:VisualElement style="background-color:white; border-radius:8px; padding:16px; flex:1; align-items:center;">
+        <ui:Label name="duration-value" text="--" style="font-size:36px; -unity-font-style:bold; color:rgb(21,101,192);"/>
+        <ui:Label text="用时(秒)" style="color:rgb(97,97,97);"/>
+      </ui:VisualElement>
+      <ui:VisualElement style="background-color:white; border-radius:8px; padding:16px; flex:1; align-items:center;">
+        <ui:Label name="error-value" text="--" style="font-size:36px; -unity-font-style:bold; color:rgb(244,67,54);"/>
+        <ui:Label text="错误次数" style="color:rgb(97,97,97);"/>
+      </ui:VisualElement>
+    </ui:VisualElement>
+
+    <ui:Label name="pass-label" text="" style="font-size:14px; margin-bottom:12px;"/>
+    <ui:Label name="error-steps-label" text="错误步骤：" style="margin-bottom:4px;"/>
+    <ui:Label name="error-steps-list" text="" style="color:rgb(244,67,54); white-space:normal;"/>
+
+    <ui:VisualElement style="flex-direction:row; margin-top:20px; gap:8px;">
+      <ui:Button name="btn-export-csv" text="导出 CSV" class="btn-primary"/>
+      <ui:Button name="btn-retrain" text="重新训练" class="btn-primary"/>
+      <ui:Button name="btn-menu" text="返回主菜单" class="btn-primary"/>
+    </ui:VisualElement>
+  </ui:VisualElement>
+</ui:UXML>
