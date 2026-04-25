@@ -1,5 +1,4 @@
 using NUnit.Framework;
-using Newtonsoft.Json;
 
 public class JsonConfigLoaderTests
 {
@@ -27,10 +26,11 @@ public class JsonConfigLoaderTests
     }";
 
     [Test]
-    public void Deserialize_ValidJson_ReturnsCorrectConfig()
+    public void ParseConfig_ValidJson_ReturnsCorrectConfig()
     {
-        var config = JsonConvert.DeserializeObject<TrainingConfig>(SampleJson);
+        var config = JsonConfigLoader.ParseConfig(SampleJson);
 
+        Assert.IsNotNull(config);
         Assert.AreEqual("测试训练", config.TrainingName);
         Assert.AreEqual("ZhuangKaChe_TypeA", config.EquipmentType);
         Assert.AreEqual(60, config.PassScore);
@@ -38,9 +38,9 @@ public class JsonConfigLoaderTests
     }
 
     [Test]
-    public void Deserialize_Step_HasCorrectFields()
+    public void ParseConfig_Step_HasCorrectFields()
     {
-        var config = JsonConvert.DeserializeObject<TrainingConfig>(SampleJson);
+        var config = JsonConfigLoader.ParseConfig(SampleJson);
         var step = config.Steps[0];
 
         Assert.AreEqual(1, step.StepId);
@@ -52,18 +52,32 @@ public class JsonConfigLoaderTests
     }
 
     [Test]
-    public void Deserialize_NullJson_ThrowsException()
+    public void ParseConfig_NullInput_ReturnsNull()
     {
-        Assert.Throws<System.ArgumentNullException>(
-            () => JsonConvert.DeserializeObject<TrainingConfig>(null));
+        var config = JsonConfigLoader.ParseConfig(null);
+        Assert.IsNull(config);
+    }
+
+    [Test]
+    public void ParseConfig_EmptyString_ReturnsNull()
+    {
+        var config = JsonConfigLoader.ParseConfig("");
+        Assert.IsNull(config);
+    }
+
+    [Test]
+    public void ParseConfig_MalformedJson_ReturnsNull()
+    {
+        var config = JsonConfigLoader.ParseConfig("{not valid json}");
+        Assert.IsNull(config);
     }
 
     [Test]
     public void ValidateTotalWeight_SingleStep10_ReturnsFalse()
     {
-        var config = JsonConvert.DeserializeObject<TrainingConfig>(SampleJson);
+        var config = JsonConfigLoader.ParseConfig(SampleJson);
         bool result = TrainingConfig.ValidateTotalWeight(config);
-        Assert.IsFalse(result); // 单步weight=10，不等于100
+        Assert.IsFalse(result);
     }
 
     [Test]
@@ -86,19 +100,5 @@ public class JsonConfigLoaderTests
         var config = JsonConfigLoader.ParseConfig(SampleJson);
         Assert.IsNotNull(config);
         Assert.AreEqual("测试训练", config.TrainingName);
-    }
-
-    [Test]
-    public void ParseConfig_EmptyString_ReturnsNull()
-    {
-        var config = JsonConfigLoader.ParseConfig("");
-        Assert.IsNull(config);
-    }
-
-    [Test]
-    public void ParseConfig_MalformedJson_ReturnsNull()
-    {
-        var config = JsonConfigLoader.ParseConfig("{not valid json}");
-        Assert.IsNull(config);
     }
 }
