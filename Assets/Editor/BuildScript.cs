@@ -1,7 +1,6 @@
 using System;
 using System.IO;
 using UnityEditor;
-using UnityEditor.AddressableAssets;
 using UnityEngine;
 
 public static class BuildScript
@@ -17,24 +16,25 @@ public static class BuildScript
 
     public static void BuildWindows64()
     {
-        // 输出路径优先读环境变量，方便 CI 覆盖
         string outputDir = Environment.GetEnvironmentVariable("BUILD_OUTPUT_DIR")
                            ?? "Builds/Windows";
         string exe = Path.Combine(outputDir, "VirtualSimSystem.exe");
 
         Directory.CreateDirectory(outputDir);
 
-        BuildAddressables();
+        // Addressables bundle 需在有素材时手动执行：
+        // Window > Asset Management > Addressables > Groups > Build > New Build
+        Debug.LogWarning("[Build] Addressables not built in CI (no assets). Run manually before release.");
 
         var options = new BuildPlayerOptions
         {
-            scenes            = Scenes,
-            locationPathName  = exe,
-            target            = BuildTarget.StandaloneWindows64,
-            options           = BuildOptions.None,
+            scenes           = Scenes,
+            locationPathName = exe,
+            target           = BuildTarget.StandaloneWindows64,
+            options          = BuildOptions.None,
         };
 
-        var report = BuildPipeline.BuildPlayer(options);
+        var report  = BuildPipeline.BuildPlayer(options);
         var summary = report.summary;
 
         if (summary.result == UnityEditor.Build.Reporting.BuildResult.Succeeded)
@@ -46,22 +46,5 @@ public static class BuildScript
             Debug.LogError($"[Build] FAILED: {summary.result} — errors: {summary.totalErrors}");
             EditorApplication.Exit(1);
         }
-    }
-
-    static void BuildAddressables()
-    {
-        var settings = AddressableAssetSettingsDefaultObject.Settings;
-        if (settings == null)
-        {
-            Debug.LogWarning("[Build] Addressable settings not found, skipping.");
-            return;
-        }
-        AddressableAssetSettings.BuildPlayerContent(out var result);
-        if (!string.IsNullOrEmpty(result.Error))
-        {
-            Debug.LogError($"[Build] Addressables failed: {result.Error}");
-            EditorApplication.Exit(1);
-        }
-        Debug.Log("[Build] Addressables OK");
     }
 }
