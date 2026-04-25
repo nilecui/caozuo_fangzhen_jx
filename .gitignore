@@ -1,0 +1,17 @@
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+*.pidb
+*.pdb
+*.userprefs
+.DS_Store
+*.swp
+.superpowers/
+test-results.xml
+test-log.txt
+*.sln
+*.csproj

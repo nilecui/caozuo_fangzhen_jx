@@ -1,0 +1,100 @@
+{
+  "training_name": "装卡车A型装填操作训练",
+  "equipment_type": "ZhuangKaChe_TypeA",
+  "personnel_total": 3,
+  "pass_score": 60,
+  "time_limit_seconds": 600,
+  "steps": [
+    {
+      "step_id": 1,
+      "step_name": "展开液压支腿",
+      "personnel_count": 2,
+      "hint_text": "操作员甲控制液压阀，乙确认支腿到位",
+      "content_info": "液压系统工作压力 18MPa，支腿展开角度 90°",
+      "voice_file": "configs/audio/step_01.mp3",
+      "target_object": "HydraulicLeg_L",
+      "trigger_action": "click",
+      "trigger_params": { "axis": "Z", "angle": 90, "tolerance": 5 },
+      "score_weight": 10,
+      "timeout_seconds": 60
+    },
+    {
+      "step_id": 2,
+      "step_name": "连接液压管路",
+      "personnel_count": 1,
+      "hint_text": "对准接口，顺时针旋转锁紧",
+      "content_info": "连接液压快插接头，确认锁止到位",
+      "voice_file": "configs/audio/step_02.mp3",
+      "target_object": "HydraulicConnector",
+      "trigger_action": "click",
+      "trigger_params": {},
+      "score_weight": 15,
+      "timeout_seconds": 90
+    },
+    {
+      "step_id": 3,
+      "step_name": "启动液压系统",
+      "personnel_count": 1,
+      "hint_text": "按下启动按钮，等待压力表达到工作压力",
+      "content_info": "工作压力 18MPa，启动后观察压力表读数",
+      "voice_file": "configs/audio/step_03.mp3",
+      "target_object": "HydraulicStartButton",
+      "trigger_action": "click",
+      "trigger_params": {},
+      "score_weight": 15,
+      "timeout_seconds": 120
+    },
+    {
+      "step_id": 4,
+      "step_name": "操作举升臂就位",
+      "personnel_count": 2,
+      "hint_text": "操作员甲控制举升臂，乙引导吊物对位",
+      "content_info": "举升臂最大伸出长度 4.5m，额定载荷 5T",
+      "voice_file": "configs/audio/step_04.mp3",
+      "target_object": "HydraulicArm",
+      "trigger_action": "click",
+      "trigger_params": {},
+      "score_weight": 20,
+      "timeout_seconds": 180
+    },
+    {
+      "step_id": 5,
+      "step_name": "挂载吊物",
+      "personnel_count": 3,
+      "hint_text": "检查吊钩锁紧状态，确认吊带无扭转",
+      "content_info": "吊钩额定载荷 5T，吊带安全系数不低于 6",
+      "voice_file": "configs/audio/step_05.mp3",
+      "target_object": "CraneHook",
+      "trigger_action": "click",
+      "trigger_params": {},
+      "score_weight": 20,
+      "timeout_seconds": 120
+    },
+    {
+      "step_id": 6,
+      "step_name": "收起支腿",
+      "personnel_count": 2,
+      "hint_text": "确认吊物已安全落位后，操作收腿",
+      "content_info": "收腿前确认吊物落地稳固，液压支腿完全收回后锁定",
+      "voice_file": "configs/audio/step_06.mp3",
+      "target_object": "HydraulicLeg_L",
+      "trigger_action": "click",
+      "trigger_params": {},
+      "score_weight": 10,
+      "timeout_seconds": 60
+    },
+    {
+      "step_id": 7,
+      "step_name": "断开液压管路",
+      "personnel_count": 1,
+      "hint_text": "先泄压再拆管，防止液压油喷溅",
+      "content_info": "拆管前确认系统压力为零，逆时针旋转解锁",
+      "voice_file": "configs/audio/step_07.mp3",
+      "target_object": "HydraulicConnector",
+      "trigger_action": "click",
+      "trigger_params": {},
+      "score_weight": 10,
+      "timeout_seconds": 60
+    }
+  ]
+}
