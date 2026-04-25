@@ -79,4 +79,26 @@ public class JsonConfigLoaderTests
         };
         Assert.IsTrue(TrainingConfig.ValidateTotalWeight(config));
     }
+
+    [Test]
+    public void ParseConfig_ValidJsonString_ReturnsConfig()
+    {
+        var config = JsonConfigLoader.ParseConfig(SampleJson);
+        Assert.IsNotNull(config);
+        Assert.AreEqual("测试训练", config.TrainingName);
+    }
+
+    [Test]
+    public void ParseConfig_EmptyString_ReturnsNull()
+    {
+        var config = JsonConfigLoader.ParseConfig("");
+        Assert.IsNull(config);
+    }
+
+    [Test]
+    public void ParseConfig_MalformedJson_ReturnsNull()
+    {
+        var config = JsonConfigLoader.ParseConfig("{not valid json}");
+        Assert.IsNull(config);
+    }
 }
