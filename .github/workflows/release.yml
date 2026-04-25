@@ -1,0 +1,70 @@
+name: Build & Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  build:
+    name: Build Windows x64
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          lfs: true
+
+      # 缓存 Unity Library 目录，大幅缩短后续构建时间
+      - name: Cache Library
+        uses: actions/cache@v4
+        with:
+          path: Library
+          key: Library-Windows-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
+          restore-keys: |
+            Library-Windows-
+            Library-
+
+      # 使用 game-ci Unity Builder（Ubuntu + Docker，内置 Unity 安装）
+      - name: Build
+        uses: game-ci/unity-builder@v4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL:   ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          targetPlatform: StandaloneWindows64
+          buildName: VirtualSimSystem
+          # 与本地开发保持一致的 Unity 版本（首次 Unity Hub 打开后可从 ProjectSettings/ProjectVersion.txt 确认）
+          unityVersion: 2022.3.62f1
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: VirtualSimSystem-Windows
+          path: build/StandaloneWindows64
+          retention-days: 7
+
+  release:
+    name: Create GitHub Release
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: VirtualSimSystem-Windows
+          path: build
+
+      - name: Zip
+        run: zip -r VirtualSimSystem-Windows-${{ github.ref_name }}.zip build/
+
+      - name: Publish Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: VirtualSimSystem-Windows-${{ github.ref_name }}.zip
+          generate_release_notes: true
+          name: ${{ github.ref_name }}
