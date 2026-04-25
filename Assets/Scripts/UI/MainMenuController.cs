@@ -32,6 +32,7 @@ public class MainMenuController : MonoBehaviour
 
     private void Navigate(string scene, string name, string id, int equipIdx)
     {
+        if (equipIdx < 0 || equipIdx >= EquipmentConfigMap.Length) equipIdx = 0;
         SaveSession(name, id, equipIdx);
         SceneLoader.Instance.LoadScene(scene);
     }
@@ -43,8 +44,9 @@ public class MainMenuController : MonoBehaviour
             Debug.LogWarning("[MainMenu] 请先填写学员姓名和工号");
             return;
         }
+        if (equipIdx < 0 || equipIdx >= EquipmentConfigMap.Length) equipIdx = 0;
         if (equipIdx > 0)
-            Debug.LogWarning($"[MainMenu] 装备索引 {equipIdx} 对应的配置文件仍为占位符 \"{EquipmentConfigMap[equipIdx]}\"，请替换为正式配置文件。");
+            Debug.LogWarning($"[MainMenu] 装备索引 {equipIdx} 对应的配置文件仍为占位符，请替换为正式配置文件。");
         SaveSession(name, id, equipIdx);
         AppManager.Instance.Session.SelectedEquipmentType = EquipmentConfigMap[equipIdx];
         SceneLoader.Instance.LoadScene(scene);

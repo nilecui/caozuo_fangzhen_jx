@@ -58,6 +58,8 @@ public class ScoreReportController : MonoBehaviour
         File.WriteAllText(path, sb.ToString(), Encoding.UTF8);
         Debug.Log($"[ScoreReport] CSV exported to: {path}");
 
+#if UNITY_STANDALONE_WIN
         System.Diagnostics.Process.Start("explorer.exe", $"/select,{path}");
+#endif
     }
 }
