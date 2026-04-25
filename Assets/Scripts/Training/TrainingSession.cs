@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,7 +10,7 @@ public class TrainingSession
     public TrainingMode Mode { get; }
     public int CurrentStepIndex { get; private set; }
     public List<int> ErrorStepIds { get; } = new List<int>();
-    public float StartTime { get; private set; }
+    public DateTime StartTime { get; private set; }
 
     public TrainingStep CurrentStep =>
         CurrentStepIndex < Config.Steps.Count ? Config.Steps[CurrentStepIndex] : null;
@@ -20,7 +21,7 @@ public class TrainingSession
     {
         Config = config;
         Mode = mode;
-        StartTime = Time.time;
+        StartTime = DateTime.UtcNow;
     }
 
     public void RecordError(int stepId)
@@ -37,6 +38,6 @@ public class TrainingSession
     public int GetFinalScore()
         => ScoringEngine.Calculate(Config.Steps, ErrorStepIds);
 
-    public int GetDurationSeconds()
-        => (int)(Time.time - StartTime);
+    public float GetDurationSeconds()
+        => (float)(DateTime.UtcNow - StartTime).TotalSeconds;
 }

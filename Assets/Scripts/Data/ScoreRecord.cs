@@ -15,4 +15,7 @@ public class ScoreRecord
     public int ErrorCount { get; set; }
     public string Date { get; set; }          // "YYYY-MM-DD"
     public string ErrorStepIds { get; set; }  // JSON array string, e.g. "[2,5]"
+
+    [Column("pass_score")]
+    public int PassScore { get; set; }
 }

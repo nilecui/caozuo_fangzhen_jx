@@ -11,6 +11,12 @@ public class TrainingFlowController : MonoBehaviour
     private TrainingSession _session;
     private TrainingStateMachine _stateMachine;
 
+    public void LoadConfig(string fileName)
+    {
+        var config = JsonConfigLoader.LoadFromFile(fileName);
+        StartTraining(config, TrainingMode.Training);
+    }
+
     public void StartTraining(TrainingConfig config, TrainingMode mode)
     {
         _session = new TrainingSession(config, mode);
@@ -80,7 +86,7 @@ public class TrainingFlowController : MonoBehaviour
     {
         _stateMachine.Complete();
         int score = _session.GetFinalScore();
-        int duration = _session.GetDurationSeconds();
+        int duration = (int)_session.GetDurationSeconds();
 
         if (_session.Mode == TrainingMode.Assessment)
         {
@@ -96,7 +102,9 @@ public class TrainingFlowController : MonoBehaviour
                 Date = System.DateTime.Now.ToString("yyyy-MM-dd"),
                 ErrorStepIds = JsonConvert.SerializeObject(_session.ErrorStepIds)
             };
-            AppManager.Instance.Database.InsertScore(record);
+            record.PassScore = _session.Config.PassScore;
+            int insertedId = AppManager.Instance.Database.InsertScore(record);
+            AppManager.Instance.Session.CurrentScoreRecordId = insertedId;
         }
 
         SceneLoader.Instance?.LoadScene("ScoreManagement");

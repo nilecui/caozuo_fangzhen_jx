@@ -6,7 +6,7 @@
   <ui:VisualElement name="top-bar" class="top-bar">
     <ui:Label name="app-title" text="虚拟仿真示教系统" class="top-bar__title"/>
     <ui:Label name="trainee-name" text="学员：---" class="top-bar__label"/>
-    <ui:Label name="current-date" text="2026-04-25" class="top-bar__label"/>
+    <ui:Label name="current-date" text="" class="top-bar__label"/>
     <ui:Button name="btn-exit" text="退出" class="btn-primary"/>
   </ui:VisualElement>
 

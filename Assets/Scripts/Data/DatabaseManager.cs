@@ -27,7 +27,7 @@ public class DatabaseManager
     public int InsertScore(ScoreRecord record)
     {
         _connection.Insert(record);
-        return record.Id;
+        return (int)_connection.ExecuteScalar<long>("SELECT last_insert_rowid()");
     }
 
     public List<ScoreRecord> QueryAll()

@@ -11,8 +11,9 @@ public class ScoreReportController : MonoBehaviour
 
     private void OnEnable()
     {
+        int scoreId = AppManager.Instance.Session.CurrentScoreRecordId;
         var records = AppManager.Instance.Database.QueryAll();
-        _record = records.LastOrDefault();
+        _record = records.Find(r => r.Id == scoreId) ?? records.LastOrDefault();
 
         var root = GetComponent<UIDocument>().rootVisualElement;
         if (_record == null) return;
@@ -24,7 +25,8 @@ public class ScoreReportController : MonoBehaviour
         root.Q<Label>("duration-value").text = _record.DurationSeconds.ToString();
         root.Q<Label>("error-value").text    = _record.ErrorCount.ToString();
 
-        bool passed = _record.Score >= 60;
+        int passScore = _record.PassScore > 0 ? _record.PassScore : 60;
+        bool passed = _record.Score >= passScore;
         var passLabel = root.Q<Label>("pass-label");
         passLabel.text  = passed ? "✓ 合格" : "✗ 不合格";
         passLabel.style.color = passed

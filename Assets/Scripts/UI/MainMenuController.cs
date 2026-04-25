@@ -43,6 +43,8 @@ public class MainMenuController : MonoBehaviour
             Debug.LogWarning("[MainMenu] 请先填写学员姓名和工号");
             return;
         }
+        if (equipIdx > 0)
+            Debug.LogWarning($"[MainMenu] 装备索引 {equipIdx} 对应的配置文件仍为占位符 \"{EquipmentConfigMap[equipIdx]}\"，请替换为正式配置文件。");
         SaveSession(name, id, equipIdx);
         AppManager.Instance.Session.SelectedEquipmentType = EquipmentConfigMap[equipIdx];
         SceneLoader.Instance.LoadScene(scene);
