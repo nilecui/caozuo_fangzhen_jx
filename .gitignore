@@ -15,3 +15,5 @@ test-results.xml
 test-log.txt
 *.sln
 *.csproj
+[Cc]rash[Rr]eports/
+ExportedObj/
