@@ -1,4 +1,5 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd">
 
   <Style src="../USS/Theme.uss" />
