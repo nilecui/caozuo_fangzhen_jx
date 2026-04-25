@@ -1,0 +1,38 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd">
+  <Style src="../USS/Theme.uss"/>
+  <ui:VisualElement style="flex-grow:1; flex-direction:column;">
+
+    <ui:VisualElement style="flex-direction:row; background-color:rgb(21,101,192); padding:8px 16px; align-items:center;">
+      <ui:Label text="原理演示" style="font-size:16px; -unity-font-style:bold; color:white; flex-grow:1;"/>
+      <ui:Button name="btn-back-menu" text="← 返回" class="btn-primary"/>
+    </ui:VisualElement>
+
+    <ui:VisualElement style="flex-grow:1; flex-direction:row;">
+      <ui:VisualElement style="flex-grow:1; background-color:rgb(30,30,40);"/>
+
+      <ui:VisualElement style="width:220px; background-color:white; padding:16px; flex-direction:column;">
+        <ui:Label text="选择演示系统" style="font-size:13px; -unity-font-style:bold; margin-bottom:8px;"/>
+        <ui:Button name="btn-mechanical"  text="机械系统" class="btn-primary" style="margin-bottom:6px;"/>
+        <ui:Button name="btn-hydraulic"   text="液压系统" class="btn-primary" style="margin-bottom:6px;"/>
+        <ui:Button name="btn-electrical"  text="电气系统" class="btn-primary" style="margin-bottom:16px;"/>
+
+        <ui:Label text="播放控制" style="font-size:13px; -unity-font-style:bold; margin-bottom:8px;"/>
+        <ui:VisualElement style="flex-direction:row; margin-bottom:8px; gap:6px;">
+          <ui:Button name="btn-pause"  text="暂停/继续" class="btn-primary" style="flex:1;"/>
+          <ui:Button name="btn-replay" text="重播"      class="btn-primary" style="flex:1;"/>
+        </ui:VisualElement>
+
+        <ui:Label text="进度" style="margin-bottom:4px;"/>
+        <ui:Slider name="principle-progress" low-value="0" high-value="100" value="0"/>
+      </ui:VisualElement>
+    </ui:VisualElement>
+
+    <ui:VisualElement style="background-color:rgb(0,0,0); padding:8px 16px; flex-direction:row; align-items:center;">
+      <ui:Label text="🔊" style="margin-right:8px; color:white;"/>
+      <ui:Label name="subtitle-text" text="" style="color:white; font-size:13px; flex-grow:1;"/>
+    </ui:VisualElement>
+
+  </ui:VisualElement>
+</ui:UXML>

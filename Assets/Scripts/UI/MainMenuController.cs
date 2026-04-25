@@ -49,6 +49,7 @@ public class MainMenuController : MonoBehaviour
             Debug.LogWarning($"[MainMenu] 装备索引 {equipIdx} 对应的配置文件仍为占位符，请替换为正式配置文件。");
         SaveSession(name, id, equipIdx);
         AppManager.Instance.Session.SelectedEquipmentType = EquipmentConfigMap[equipIdx];
+        AppManager.Instance.Session.CurrentMode = mode;
         SceneLoader.Instance.LoadScene(scene);
     }
 

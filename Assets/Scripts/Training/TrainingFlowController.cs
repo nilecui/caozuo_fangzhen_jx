@@ -11,10 +11,19 @@ public class TrainingFlowController : MonoBehaviour
     private TrainingSession _session;
     private TrainingStateMachine _stateMachine;
 
+    private void Start()
+    {
+        if (AppManager.Instance == null) return;
+        var session = AppManager.Instance.Session;
+        if (!string.IsNullOrEmpty(session.SelectedEquipmentType))
+            LoadConfig(session.SelectedEquipmentType);
+    }
+
     public void LoadConfig(string fileName)
     {
         var config = JsonConfigLoader.LoadFromFile(fileName);
-        StartTraining(config, TrainingMode.Training);
+        var mode = AppManager.Instance?.Session.CurrentMode ?? TrainingMode.Training;
+        StartTraining(config, mode);
     }
 
     public void StartTraining(TrainingConfig config, TrainingMode mode)
