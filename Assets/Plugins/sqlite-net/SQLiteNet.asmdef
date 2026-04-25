@@ -1,8 +1,6 @@
 {
-    "name": "VirtualSim",
-    "references": [
-        "SQLiteNet"
-    ],
+    "name": "SQLiteNet",
+    "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
