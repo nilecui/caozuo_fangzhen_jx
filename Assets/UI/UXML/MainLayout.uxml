@@ -1,0 +1,58 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements"
+         xsi:noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd">
+
+  <Style src="../USS/Theme.uss" />
+
+  <ui:VisualElement name="top-bar" class="top-bar">
+    <ui:Label name="app-title" text="虚拟仿真示教系统" class="top-bar__title"/>
+    <ui:Label name="trainee-name" text="学员：---" class="top-bar__label"/>
+    <ui:Label name="current-date" text="2026-04-25" class="top-bar__label"/>
+    <ui:Button name="btn-exit" text="退出" class="btn-primary"/>
+  </ui:VisualElement>
+
+  <ui:VisualElement name="main-body" style="flex-grow:1; flex-direction:row;">
+
+    <ui:VisualElement name="side-nav" class="side-nav">
+      <ui:Label name="nav-structure" text="结构认知" class="nav-item nav-item--active" />
+      <ui:Label name="nav-principle" text="原理演示" class="nav-item" />
+      <ui:Label name="nav-training" text="操作训练" class="nav-item" />
+      <ui:Label name="nav-assessment" text="考核评估" class="nav-item" />
+      <ui:Label name="nav-scores" text="成绩管理" class="nav-item" />
+    </ui:VisualElement>
+
+    <ui:VisualElement name="viewport" style="flex-grow:1; background-color:rgb(220,230,240);">
+      <ui:VisualElement name="view-presets" style="position:absolute; top:8px; right:8px; flex-direction:row;">
+        <ui:Button name="btn-front" text="正视" class="btn-primary" style="margin-right:4px;"/>
+        <ui:Button name="btn-side" text="侧视" class="btn-primary" style="margin-right:4px;"/>
+        <ui:Button name="btn-top" text="俯视" class="btn-primary" style="margin-right:4px;"/>
+        <ui:Button name="btn-persp" text="透视" class="btn-primary"/>
+      </ui:VisualElement>
+      <ui:VisualElement name="viewport-tools" style="position:absolute; bottom:8px; left:8px; flex-direction:row;">
+        <ui:Button name="btn-explode" text="爆炸图" class="btn-primary" style="margin-right:4px;"/>
+        <ui:Button name="btn-label" text="标注" class="btn-primary"/>
+      </ui:VisualElement>
+    </ui:VisualElement>
+
+    <ui:VisualElement name="info-panel" class="info-panel">
+      <ui:Label name="part-title" text="部件信息" style="font-size:12px; -unity-font-style:bold; color:rgb(21,101,192); margin-bottom:8px;"/>
+      <ui:Label name="part-name" text="---" style="font-size:14px; margin-bottom:4px;"/>
+      <ui:Label name="part-spec" text="" style="font-size:11px; color:rgb(97,97,97);"/>
+      <ui:Label name="part-material" text="" style="font-size:11px; color:rgb(97,97,97);"/>
+      <ui:Label name="part-desc" text="" style="font-size:11px; color:rgb(97,97,97); white-space:normal; margin-top:8px;"/>
+      <ui:Button name="btn-principle" text="▶ 原理演示" class="btn-primary" style="margin-top:12px;"/>
+    </ui:VisualElement>
+
+  </ui:VisualElement>
+
+  <ui:VisualElement name="step-bar" class="step-bar">
+    <ui:Label name="step-counter" text="步骤 -/-" style="font-size:11px; color:rgb(97,97,97); margin-right:8px;"/>
+    <ui:ProgressBar name="step-progress" value="0" style="flex-grow:1; margin-right:8px;"/>
+    <ui:Label name="step-hint" text="" style="font-size:11px; color:rgb(21,101,192);"/>
+  </ui:VisualElement>
+
+  <ui:VisualElement name="subtitle-bar" class="subtitle-bar">
+    <ui:Label name="subtitle-icon" text="🔊" style="margin-right:6px;"/>
+    <ui:Label name="subtitle-text" text="" class="subtitle-bar__text"/>
+  </ui:VisualElement>
+
+</ui:UXML>
