@@ -38,6 +38,9 @@ jobs:
           buildName: VirtualSimSystem
           # 与本地开发保持一致的 Unity 版本（首次 Unity Hub 打开后可从 ProjectSettings/ProjectVersion.txt 确认）
           unityVersion: 2022.3.62f1
+          # 使用项目内的构建脚本，自动构建 Addressables 后再打包
+          buildMethod: BuildScript.BuildWindows64
+          customParameters: -BUILD_OUTPUT_DIR build/StandaloneWindows64
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
