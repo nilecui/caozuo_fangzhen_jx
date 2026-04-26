@@ -11,6 +11,8 @@ public class ScoreReportController : MonoBehaviour
 
     private void OnEnable()
     {
+        if (AppManager.Instance == null) return;
+
         int scoreId = AppManager.Instance.Session.CurrentScoreRecordId;
         var records = AppManager.Instance.Database.QueryAll();
         _record = records.Find(r => r.Id == scoreId) ?? records.LastOrDefault();

@@ -13,6 +13,12 @@ public static class SceneSetup
     [MenuItem("VirtualSim/Setup All Scenes")]
     public static void SetupAllScenes()
     {
+        if (EditorApplication.isPlaying)
+        {
+            EditorUtility.DisplayDialog("Scene Setup", "Stop Play Mode first, then run Setup All Scenes.", "OK");
+            return;
+        }
+
         if (!EditorUtility.DisplayDialog("Scene Setup",
             "This will overwrite all 5 scene files. Save any unsaved work first.\n\nContinue?",
             "Setup", "Cancel"))
