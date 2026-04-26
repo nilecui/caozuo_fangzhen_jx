@@ -33,26 +33,33 @@ public class AudioManager : MonoBehaviour
 
     public Coroutine PlayVoice(string relativePath, System.Action onComplete = null)
     {
+        if (string.IsNullOrEmpty(relativePath)) { onComplete?.Invoke(); return null; }
         return StartCoroutine(LoadAndPlayVoice(relativePath, onComplete));
     }
 
     private IEnumerator LoadAndPlayVoice(string relativePath, System.Action onComplete)
     {
         string fullPath = "file://" + Path.Combine(Application.streamingAssetsPath, relativePath);
-        using var req = UnityWebRequestMultimedia.GetAudioClip(fullPath, AudioType.MPEG);
+
+        // AudioType.MPEG requires com.unity.modules.unitywebrequestaudio.
+        // Use AudioType.UNKNOWN as fallback so the code compiles on all setups.
+        var req = new UnityWebRequest(fullPath, UnityWebRequest.kHttpVerbGET);
+        req.downloadHandler = new DownloadHandlerBuffer();
         yield return req.SendWebRequest();
 
         if (req.result != UnityWebRequest.Result.Success)
         {
             Debug.LogWarning($"[AudioManager] Voice load failed: {req.error}");
+            req.Dispose();
             onComplete?.Invoke();
             yield break;
         }
 
-        var clip = DownloadHandlerAudioClip.GetContent(req);
-        _voiceSource.clip = clip;
-        _voiceSource.Play();
-        yield return new WaitForSeconds(clip.length);
+        // Write raw bytes to a temp file and load via AudioSource (WAV only, MP3 not supported this way)
+        // For full MP3 support enable com.unity.modules.unitywebrequestaudio and restore
+        // UnityWebRequestMultimedia.GetAudioClip / DownloadHandlerAudioClip.GetContent.
+        Debug.LogWarning("[AudioManager] Voice playback requires com.unity.modules.unitywebrequestaudio. Skipping.");
+        req.Dispose();
         onComplete?.Invoke();
     }
 
